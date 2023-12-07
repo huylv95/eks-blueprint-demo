@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: efs-pod
+spec:
+  containers:
+  - name: efs-container
+    image: nginx:latest  # Replace with your desired image
+    volumeMounts:
+    - mountPath: "/efs"  # Mount path inside the container
+      name: efs-volume
+  volumes:
+  - name: efs-volume
+    nfs:
+      server: fs-0dd9986e3cbc73cb9.efs.ap-northeast-1.amazonaws.com  # Replace with your EFS server DNS name
+      path: "/"  # Replace with your EFS path
