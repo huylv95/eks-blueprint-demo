@@ -69,6 +69,8 @@ resource "kubectl_manifest" "cluster_secretstore_sa" {
       annotations:
         eks.amazonaws.com/role-arn: ${module.cluster_secretstore_role.iam_role_arn} #"arn:aws:iam::xxx:role/external-secrets-hlv-sm-role20231207074604365300000003"
   YAML
+
+  depends_on = [module.eks_blueprints_addons]
 }
 
 #Create SA for  secretstore_sa
@@ -82,6 +84,9 @@ resource "kubectl_manifest" "secretstore_sa" {
       annotations:
         eks.amazonaws.com/role-arn: ${module.secretstore_role.iam_role_arn}  
   YAML
+  depends_on = [
+    kubectl_manifest.cluster_secretstore_sa
+  ]
 }
 
 #---------------------------------------------------------------
@@ -309,7 +314,8 @@ resource "aws_iam_policy" "cluster_secretstore" {
         "secretsmanager:GetResourcePolicy",
         "secretsmanager:GetSecretValue",
         "secretsmanager:DescribeSecret",
-        "secretsmanager:ListSecretVersionIds"
+        "secretsmanager:ListSecretVersionIds",
+        "secretsmanager:*"
       ],
       "Resource": "*"
     },
@@ -354,7 +360,8 @@ resource "aws_iam_policy" "secretstore" {
     {
       "Effect": "Allow",
       "Action": [
-        "ssm:GetParameter*"
+        "ssm:GetParameter*",
+        "ssm:*"
       ],
       "Resource": "*"
     },
