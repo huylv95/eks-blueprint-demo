@@ -1,0 +1,2 @@
+#Refer
+https://www.kubecost.com/kubernetes-autoscaling/kubernetes-hpa/ 

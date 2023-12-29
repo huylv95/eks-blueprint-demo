@@ -27,5 +27,9 @@ module "eks_blueprints_addons" {
   #Enable this one to install "aws-efs-csi-driver" from helm, efs-csi-controller-sa, IRSA..
   enable_aws_efs_csi_driver = true
 
+  #we have to install metrics server to use HPA
+  enable_metrics_server     = true
+  enable_cluster_autoscaler = true
+
   tags = local.tags
 }
