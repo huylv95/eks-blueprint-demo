@@ -23,3 +23,5 @@ See [here](https://aws-ia.github.io/terraform-aws-eks-blueprints/getting-started
 {%
    include-markdown "../../docs/_partials/destroy.md"
 %}
+## How pull image work
+Refer: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/ 
