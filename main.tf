@@ -7,14 +7,14 @@ module "eks" {
   version = "~> 19.16"
 
   cluster_name                   = local.name
-  cluster_version                = "1.28"
+  cluster_version                = "1.29"
   cluster_endpoint_public_access = true
 
   vpc_id     = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnets
 
   eks_managed_node_groups = {
-    workload = {
+    hlv_workload = {
       instance_types = ["m5.large"]
 
       min_size     = 1
